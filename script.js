@@ -27,14 +27,14 @@ let player1_score = 0
 let player2_score = 0
 let currentPlayer;
 
-
+//api call to fetch the categories
 const fetchCategory = async() => {
     const response = await fetch('https://the-trivia-api.com/v2/categories')
     const category = await response.json()
-    console.log(category)
     return category
 }
 
+//category dropdown menu
 const displayCategory = async(e) => {
     e.preventDefault()
     if(player1.value && player2.value)
@@ -48,7 +48,6 @@ const displayCategory = async(e) => {
         const categorylist = Object.keys(category)
         for(let i=0;i<categorylist.length;i++){
             const dropdown = document.createElement('option')
-            console.log(categorylist[i])
             dropdown.value = categorylist[i]
             dropdown.text = categorylist[i]
             selectlist.appendChild(dropdown)
@@ -59,6 +58,7 @@ const displayCategory = async(e) => {
     }
 }
 
+// fetch the questions based on category
 const fetchQuestions = async(cat) => {
     if(selectedCategory.includes(cat)){
         alert("You already finished this category. Please select another category.")
@@ -76,8 +76,6 @@ const fetchQuestions = async(cat) => {
 
         const response = await fetch(`https://the-trivia-api.com/api/questions?limit=50&categories=${cat}`) 
         const questions = await response.json()
-        console.log(questions)
-        console.log(questions.length)
         if(questions){
             selectedCategory.push(cat)
             filterQuestions(questions)
@@ -85,6 +83,7 @@ const fetchQuestions = async(cat) => {
     }
 }
 
+//filter the question array based on difficulty levels.
 const filterQuestions = (questions) => {
    questions.forEach((ques)=> {
     if(ques.difficulty === 'easy'){
@@ -97,10 +96,12 @@ const filterQuestions = (questions) => {
         hard.push(ques);
     }
    })
+   //shuffling and slicing the questions arrays to get a 6 questions single array.
    overallquizquestions = [...(shuffleArray(easy)).slice(0,2),...(shuffleArray(medium)).slice(0,2),...(shuffleArray(hard)).slice(0,2)]
    next.classList.add('next-btn')
 }
 
+//shuffle an array
 const shuffleArray = (arr) => {
     for (let i=arr.length-1;i>0;i--){
         const j = Math.floor(Math.random()*(i+1));
@@ -109,18 +110,18 @@ const shuffleArray = (arr) => {
     return arr
 }
 
-
+// next button function call - to display the question.
 const displayQuestion = () => {
 
     categorydiv.classList.remove('categorydiv')
     resultdiv.classList.remove('resultdiv')
     result.classList.remove('resultbtn')
     refresh.classList.remove('refreshbtn')
-    console.log(currentQuestionIndex)
     if(currentQuestionIndex<overallquizquestions.length)
     {
         questiondiv.innerHTML = ''
         answerdiv.innerHTML = ''
+        //function call to append questions on the ui
         AppendQuestions(overallquizquestions[currentQuestionIndex])
         currentQuestionIndex++
     }
@@ -146,6 +147,7 @@ const displayQuestion = () => {
     
 }
 
+//result button function call to display the results.
 const displayResult = () => {
         resultdiv.innerHTML = ''
         resultdiv.classList.add('resultdiv')
@@ -157,9 +159,11 @@ const displayResult = () => {
         resultdiv.appendChild(player2result)
 
 }
+//answer button function call - to check answers, switch player's turn.
 const checkAnswer = (ans,ques) => 
     {
         if(ans === ques.correctAnswer){
+            //update the player's score for the correct answer.
             scoreUpdate(ques)
         }
         Array.from(answerdiv.children).forEach((btn)=> {
@@ -174,26 +178,22 @@ const checkAnswer = (ans,ques) =>
             }
         })
         const allBtn = document.querySelectorAll('.btn');
-        console.log(allBtn);
         allBtn.forEach((info) => {
             info.disabled = true;
         });
         ((currentPlayer === player1.value)?(currentPlayer=player2.value):(currentPlayer=player1.value));
     }
     
-
-
+// function call for score update.
 const scoreUpdate = (ques) => {
     if(ques.difficulty === 'easy')
     {
         if(currentPlayer === player1.value)
         {
             player1_score = player1_score + 10;
-            console.log('player1score updated')
         }
         else{
             player2_score = player2_score + 10
-            console.log('player2score updated')
         }
     }
     else if(ques.difficulty === 'medium')
@@ -201,11 +201,9 @@ const scoreUpdate = (ques) => {
         if(currentPlayer === player1.value)
         {
             player1_score = player1_score + 15
-            console.log('player1score updated')
         }
         else{
             player2_score = player2_score + 15
-            console.log('player2score updated')
         }
     }
     else
@@ -213,16 +211,15 @@ const scoreUpdate = (ques) => {
         if(currentPlayer === player1.value)
         {
             player1_score = player1_score + 20
-            console.log('player1score updated')
         }
         else
         {
             player2_score = player2_score + 20
-            console.log('player1score updated')
         }
     }   
 }
 
+//to append the questions on the ui - display questions.
 const AppendQuestions = (ques) => {
         const playerturn =  document.createElement('h3')
         playerturn.innerHTML = `${currentPlayer}'s turn`
@@ -232,7 +229,6 @@ const AppendQuestions = (ques) => {
         questiondiv.appendChild(playerturn)
         questiondiv.appendChild(question)
         answerdiv.classList.add('answerdiv')
-        console.log(overallquizquestions)
     
         const answer = shuffleArray([ques.correctAnswer,...ques.incorrectAnswers])
         console.log(answer)
@@ -250,8 +246,14 @@ const restartQuiz = () => {
     location.reload();
 }
 
+//start button - to fetch the categories
 start.addEventListener('click',displayCategory)
-next.addEventListener('click',displayQuestion)
-result.addEventListener('click',displayResult)
-refresh.addEventListener('click',restartQuiz)
+//on change event listeners - to fetch the questions. 
 selectlist.addEventListener('change',()=>fetchQuestions(selectlist.value))
+//display the questions on the ui
+next.addEventListener('click',displayQuestion)
+//to display the results.
+result.addEventListener('click',displayResult)
+//exit or restart the game
+refresh.addEventListener('click',restartQuiz)
+
