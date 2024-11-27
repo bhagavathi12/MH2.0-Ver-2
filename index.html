@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRIVIA API GAME</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container" id="parentcontainer">
+        <form action="" class="user-input" id="userinput">
+            <div class="player1">
+                <label for="player1">Player1:</label>
+                <input type="text" name="player1" id="player1">
+            </div>
+            <div class="player2">
+                <label for="player2">Player2:</label>
+                <input type="text" name="player2" id="player2">
+            </div>
+            <button type="submit" id="startgame">Start Game</button>
+        </form> 
+        <div  id="category">
+            <h1>Choose a category</h1>
+            <select name="cat-list" id="category-list">
+                <option value="Choose">Choose Category</option>
+            </select>
+        </div>
+        <div id="question"></div>
+        <div id="result"></div>
+        <button class="hide" id="next">Next</button>
+        <div class="btn-container">
+            <button class="hide" id="resultbtn">Results</button>
+            <button class="hide" id="refresh">Refresh</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif;
+}
+body{
+    background-color: rgb(103, 213, 103);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.container{
+    background-color: white;
+    /* width: 500px; */
+    max-width: 80%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #070606;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    background-color: whitesmoke;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0px 0px 1px whitesmoke;
+    border-radius: 10px;
+}
+.user-input .player1{
+    padding: 10px;
+}
+.user-input .player2{
+    padding: 10px;
+}
+#startgame{
+    background-color: #74B9FF;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: larger;
+    border: none;
+    cursor: pointer;
+}
+.hide{
+    display: none;
+}
+
+.categorydiv{
+    display: flex;
+    flex-direction: column;
+    background-color: #47535E;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    color: white;
+}
+.next-btn{
+    padding: 5px;
+    background-color: #FFF222;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    width: 100px;
+    text-align: center;
+    font-size: larger;
+}
+.questiondiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #F9DDA4;
+    padding: 10px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgb(72, 72, 42);
+    font-size: larger;
+}
+.resultdiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #9ad891;
+    padding: 10px;
+    margin: 20px;
+    font-size: larger;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #80827c;
+}
+.answerdiv{
+    /* background-color: yellow; */
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    padding: 10px;
+}
+.btn{
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #758AA2;
+    font-size: large;
+    cursor: pointer;
+}
+.resultbtn,.refreshbtn{
+    padding: 5px;
+    background-color: #A4B0BD;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    width: 100px;
+    text-align: center;
+    font-size: larger;
+    margin: 10px;
+}
+.btn-container{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+.correctans{
+    background-color: green;
+}
+.wrongans{
+    background-color: red;
+}
